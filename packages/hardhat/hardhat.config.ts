@@ -13,12 +13,11 @@ import "hardhat-deploy-ethers";
 // If not set, it uses ours Alchemy's default API key.
 // You can get your own at https://dashboard.alchemyapi.io
 
-const providerApiKey = process.env.ALCHEMY_API_KEY || "XfdusSNUiY5U0K7InJ1-seBOjcY-lBQi";
+const providerApiKey = process.env.ALCHEMY_API_KEY;
 // If not set, it uses the hardhat account 0 private key.
-const deployerPrivateKey =
-  process.env.DEPLOYER_PRIVATE_KEY ?? "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+const deployerPrivateKey = process.env.DEPLOYER_PRIVATE_KEY || "";
 // If not set, it uses ours Etherscan default API key.
-const etherscanApiKey = process.env.ETHERSCAN_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW";
+const etherscanApiKey = process.env.ETHERSCAN_API_KEY;
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -130,6 +129,7 @@ const config: HardhatUserConfig = {
     liskSepolia: {
       url: "https://rpc.sepolia-api.lisk.com",
       accounts: [deployerPrivateKey],
+      chainId: 4202,
     },
     mode: {
       url: "https://mainnet.mode.network",
@@ -140,9 +140,21 @@ const config: HardhatUserConfig = {
       accounts: [deployerPrivateKey],
     },
   },
-  // configuration for harhdat-verify plugin
+  // configuration for hardhat-verify plugin
   etherscan: {
-    apiKey: `${etherscanApiKey}`,
+    apiKey: {
+      liskSepolia: process.env.ETHERSCAN_API_KEY || "YOUR_BLOCKSCOUT_API_KEY",
+    },
+    customChains: [
+      {
+        network: "liskSepolia",
+        chainId: 4202,
+        urls: {
+          apiURL: "https://sepolia-blockscout.lisk.com/api",
+          browserURL: "https://sepolia-blockscout.lisk.com",
+        },
+      },
+    ],
   },
   // configuration for etherscan-verify from hardhat-deploy plugin
   verify: {

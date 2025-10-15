@@ -16,14 +16,14 @@ const Home: NextPage = () => {
         <h1 className="text-center">
           <span className="block text-base mb-2">Welcome to</span>
           <span className="flex items-end gap-4 text-5xl font-bold">
-            <Logo size={48} /> Scaffold-Lisk{" "}
+            <Logo size={48} /> Alvin Sugijanto DApps
           </span>
         </h1>
         <div className="flex btn btn-md bg-base-100 w-fit justify-center mb-4 items-center space-x-2">
           <p className="my-2 font-medium">Connected Address:</p>
           <Address address={connectedAddress} />
         </div>
-        <p className="text-center text-base text-slate-400">
+        {/* <p className="text-center text-base text-slate-400">
           Get started by editing{" "}
           <code className="italic bg-base-100 text-white p-1 rounded-md text-base font-bold max-w-full break-words break-all inline-block">
             packages/nextjs/app/page.tsx
@@ -38,7 +38,7 @@ const Home: NextPage = () => {
           <code className="italic bg-base-100 text-white p-1 rounded-md text-base font-bold max-w-full break-words break-all inline-block">
             packages/hardhat/contracts
           </code>
-        </p>
+        </p> */}
       </div>
 
       <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
