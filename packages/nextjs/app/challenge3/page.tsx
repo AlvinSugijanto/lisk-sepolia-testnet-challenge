@@ -19,7 +19,7 @@ const Events: NextPage = () => {
     contractName: "MyToken",
     eventName: "Transfer",
     fromBlock: 0n,
-    watch: true,
+    watch: false,
   });
 
   // Get NFT transfer events
@@ -27,7 +27,7 @@ const Events: NextPage = () => {
     contractName: "MyNFT",
     eventName: "Transfer",
     fromBlock: 0n,
-    watch: true,
+    watch: false,
   });
 
   // Determine which events to show based on selected tab

@@ -36,6 +36,11 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/challenge4",
     icon: <Cog6ToothIcon className="h-4 w-4" />,
   },
+  {
+    label: "Challenge 5",
+    href: "/challenge5",
+    icon: <Cog6ToothIcon className="h-4 w-4" />,
+  },
   // {
   //   label: "Debug Contracts",
   //   href: "/debug",

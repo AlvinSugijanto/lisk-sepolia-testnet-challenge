@@ -76,10 +76,9 @@ export const useScaffoldEventHistory = <
           address: deployedContractData?.address,
           event,
           args: filters as any, // TODO: check if it works and fix type
-          fromBlock: fromBlockUpdated, // Current block - 1
+          fromBlock: 27602212n, // Current block - 1
           toBlock: blockNumber,
         });
-        console.log(logs);
         setFromBlockUpdated(blockNumber + 1n);
 
         const newEvents = [];
@@ -117,13 +116,13 @@ export const useScaffoldEventHistory = <
     }
   };
 
-  useEffect(() => {
-    readEvents(fromBlock);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fromBlock, enabled]);
+  // useEffect(() => {
+  //   readEvents(fromBlock);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [fromBlock, enabled]);
 
   useEffect(() => {
-    if (!deployedContractLoading) {
+    if (!deployedContractLoading && deployedContractData) {
       readEvents();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
