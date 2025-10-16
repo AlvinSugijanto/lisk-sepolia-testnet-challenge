@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import { useTheme } from "next-themes";
 import { Toaster } from "react-hot-toast";
+import { ThirdwebProvider } from "thirdweb/react";
 import { WagmiConfig } from "wagmi";
 import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
@@ -46,15 +47,17 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
   }, []);
 
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <ProgressBar />
-      <RainbowKitProvider
-        chains={appChains.chains}
-        avatar={BlockieAvatar}
-        theme={mounted ? (isDarkMode ? darkTheme() : lightTheme()) : lightTheme()}
-      >
-        <ScaffoldEthApp>{children}</ScaffoldEthApp>
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <ThirdwebProvider>
+      <WagmiConfig config={wagmiConfig}>
+        <ProgressBar />
+        <RainbowKitProvider
+          chains={appChains.chains}
+          avatar={BlockieAvatar}
+          theme={mounted ? (isDarkMode ? darkTheme() : lightTheme()) : lightTheme()}
+        >
+          <ScaffoldEthApp>{children}</ScaffoldEthApp>
+        </RainbowKitProvider>
+      </WagmiConfig>
+    </ThirdwebProvider>
   );
 };

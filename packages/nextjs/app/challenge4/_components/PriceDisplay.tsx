@@ -69,8 +69,8 @@ export const PriceDisplay = ({ symbol }: PriceDisplayProps) => {
   useEffect(() => {
     fetchPrice();
     // Refresh every 30 seconds
-    const interval = setInterval(fetchPrice, 30000);
-    return () => clearInterval(interval);
+    // const interval = setInterval(fetchPrice, 30000);
+    // return () => clearInterval(interval);
   }, [deployedContractData, symbol]);
 
   return (

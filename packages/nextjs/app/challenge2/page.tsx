@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   return (
     <section className="m-8">
       <p className="text-3xl text-white font-semibold">Challenge 2</p>
-      <div className="grid grid-cols-2 mt-6 gap-6">
+      <div className="grid grid-cols-2 gap-6 mt-6">
         <TokenTransfer />
         <NFTCollection />
       </div>

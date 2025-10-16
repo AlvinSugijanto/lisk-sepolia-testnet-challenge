@@ -14,13 +14,13 @@ export const TokenTransfer = () => {
   const { writeAsync: writeMyTokenAsync } = useScaffoldContractWrite({
     contractName: "MyToken",
     functionName: "transfer",
-    args: [recipient, parseEther(amount)],
+    args: [recipient as `0x${string}`, parseEther(amount)],
   });
 
   const { data: tokenBalance } = useScaffoldContractRead({
     contractName: "MyToken",
     functionName: "balanceOf",
-    args: [connectedAddress],
+    args: [connectedAddress as `0x${string}`],
   });
 
   const handleTransfer = async () => {
@@ -31,7 +31,7 @@ export const TokenTransfer = () => {
 
     try {
       await writeMyTokenAsync({
-        args: [recipient, parseEther(amount)],
+        args: [recipient as `0x${string}`, parseEther(amount)],
       });
 
       notification.success("Token transfer successful!");
@@ -45,7 +45,7 @@ export const TokenTransfer = () => {
 
   if (!connectedAddress) {
     return (
-      <div className="card max-w-2xl w-full bg-base-100 shadow-xl mb-8">
+      <div className="card w-full bg-base-100 shadow-xl mb-8">
         <div className="card-body">
           <h2 className="card-title">Transfer Tokens</h2>
           <p>Please connect your wallet to transfer tokens</p>
@@ -55,7 +55,7 @@ export const TokenTransfer = () => {
   }
 
   return (
-    <div className="card max-w-2xl w-full bg-base-100 shadow-xl mb-8">
+    <div className="card w-full bg-base-100 shadow-xl mb-8">
       <div className="card-body">
         <h2 className="card-title">Transfer Token ($LSEA)</h2>
 
