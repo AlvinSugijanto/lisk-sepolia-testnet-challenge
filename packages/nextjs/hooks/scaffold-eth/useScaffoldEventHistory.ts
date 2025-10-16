@@ -76,9 +76,10 @@ export const useScaffoldEventHistory = <
           address: deployedContractData?.address,
           event,
           args: filters as any, // TODO: check if it works and fix type
-          fromBlock: fromBlock || fromBlockUpdated,
+          fromBlock: fromBlockUpdated, // Current block - 1
           toBlock: blockNumber,
         });
+        console.log(logs);
         setFromBlockUpdated(blockNumber + 1n);
 
         const newEvents = [];
@@ -153,7 +154,7 @@ export const useScaffoldEventHistory = <
         readEvents();
       }
     },
-    watch ? (targetNetwork.id !== chains.hardhat.id ? scaffoldConfig.pollingInterval : 4_000) : null,
+    watch ? (targetNetwork.id !== chains.hardhat.id ? scaffoldConfig.pollingInterval : 10_000) : null,
   );
 
   const eventHistoryData = useMemo(
