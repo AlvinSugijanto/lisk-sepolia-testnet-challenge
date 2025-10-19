@@ -257,7 +257,7 @@ export const NFTCard = ({ tokenId }: NFTCardProps) => {
             )}
 
             {isOwner && !isListed && isApproved && !isApproving && (
-              <button className="btn btn-accent btn-sm" onClick={() => setShowListModal(true)}>
+              <button className="btn btn-info btn-sm" onClick={() => setShowListModal(true)}>
                 List for Sale
               </button>
             )}

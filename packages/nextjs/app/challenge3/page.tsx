@@ -7,6 +7,11 @@ import { useAccount } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
 import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
+interface FetchProgress {
+  fetchCount: number;
+  fetchMax: number;
+}
+
 const Events: NextPage = () => {
   const { isConnected } = useAccount();
   const [eventType, setEventType] = useState<"token" | "nft">("token");
@@ -14,6 +19,7 @@ const Events: NextPage = () => {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [progress, setProgress] = useState<FetchProgress | null>(null);
 
   // Search filter state
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,6 +30,7 @@ const Events: NextPage = () => {
     eventName: "Transfer",
     fromBlock: 0n,
     watch: false,
+    setProgress: setProgress,
   });
 
   // Get NFT transfer events
@@ -156,8 +163,52 @@ const Events: NextPage = () => {
             </div>
           </div>
           {isLoading ? (
-            <div className="flex justify-center py-8">
-              <span className="loading loading-spinner loading-lg"></span>
+            <div className="flex flex-col items-center justify-center py-6 space-y-4 bg-[#1a1b23] rounded-xl p-6 border border-[#2a2b33]">
+              <div className="text-center space-y-1">
+                <h3 className="text-lg font-semibold text-white transition-all duration-300 ease-out">
+                  Fetching Events
+                </h3>
+                <p className="text-sm text-gray-400 transition-opacity duration-500 ease-in-out">
+                  Reading contract transaction history
+                </p>
+              </div>
+
+              <div className="w-64 space-y-4">
+                <div className="text-center">
+                  <span className="text-2xl font-bold text-blue-400 transition-all duration-1000 ease-out transform">
+                    {Math.round(((progress?.fetchCount || 0) / (progress?.fetchMax || 1)) * 100)}%
+                  </span>
+                </div>
+
+                <div className="w-full bg-[#2a2b33] rounded-full h-2.5 overflow-hidden">
+                  <div
+                    className="bg-gradient-to-r from-blue-500 to-blue-400 h-2.5 rounded-full transition-all duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] relative overflow-hidden"
+                    style={{
+                      width: `${((progress?.fetchCount || 0) / (progress?.fetchMax || 1)) * 100}%`,
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -skew-x-12 animate-shimmer-slow"></div>
+                    <div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-shimmer-fast"
+                      style={{ animationDelay: "1s" }}
+                    ></div>
+
+                    <div className="absolute inset-0 bg-blue-400/20 blur-sm transition-all duration-1000 ease-out"></div>
+                  </div>
+                </div>
+
+                <div className="flex justify-between text-xs transition-opacity duration-500 ease-in-out">
+                  <span className="text-gray-400">Blocks scanned:</span>
+                  <span className="text-white font-medium transition-all duration-700 ease-out">
+                    {progress?.fetchCount || 0} / {progress?.fetchMax}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2 text-xs text-blue-400 transition-all duration-500 ease-in-out">
+                <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse-smooth"></div>
+                <span className="transition-opacity duration-700 ease-in-out">Syncing with blockchain...</span>
+              </div>
             </div>
           ) : paginatedEvents.length === 0 ? (
             <div className="text-center py-8 text-gray-500">

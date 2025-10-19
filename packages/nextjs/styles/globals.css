@@ -26,3 +26,56 @@ h4 {
 .btn.btn-ghost {
   @apply shadow-none;
 }
+
+@keyframes shimmer-slow {
+  0% { 
+    transform: translateX(-100%) skewX(-12deg); 
+    opacity: 0.6;
+  }
+  50% { 
+    opacity: 0.8;
+  }
+  100% { 
+    transform: translateX(200%) skewX(-12deg); 
+    opacity: 0.6;
+  }
+}
+
+@keyframes shimmer-fast {
+  0% { 
+    transform: translateX(-150%) skewX(-12deg); 
+    opacity: 0.4;
+  }
+  100% { 
+    transform: translateX(150%) skewX(-12deg); 
+    opacity: 0.4;
+  }
+}
+
+@keyframes pulse-smooth {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+.animate-shimmer-slow {
+  animation: shimmer-slow 3s ease-in-out infinite;
+}
+
+.animate-shimmer-fast {
+  animation: shimmer-fast 2s ease-in-out infinite;
+}
+
+.animate-pulse-smooth {
+  animation: pulse-smooth 2s ease-in-out infinite;
+}
+
+/* Smooth transitions untuk number changes */
+.number-transition {
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
